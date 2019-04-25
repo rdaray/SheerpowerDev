@@ -1,0 +1,143 @@
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+! Program: SP_000.spsrc
+! System : .
+! Author : peterennisrda
+! Company: RDA
+! Date   : February 05, 2019
+! Purpose: Menu generator for SP_Examples
+!
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!         I n i t i a l i z a t i o n
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+here$ = FILESPEC$('@')
+print here$
+reporoot$ = left$(here$, matchword(here$,'sheerpowerdev')-1)
+print "reporoot$ = " + reporoot$
+
+examplesfolder$ = reporoot$ + "SheerpowerDev\SP_Examples\source"
+print "examplesfolder$ = " + examplesfolder$
+sheerpower$     = "C:\Sheerpower\spdev.exe"
+examplestext$   = "This is some example text for the menu"
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!         M a i n   L o g i c   A r e a
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+//generate_menu_list
+
+
+print "Directory currently running from = " + fileinfo$('', 'ALL')
+//HALT
+
+do
+  line input menu &  
+    '"SP_001.spsrc ' + examplestext$ + '" = 1,' +
+    '"SP_002.spsrc" = 2,' +
+    '"SP_003.spsrc" = 3,' +
+    '"SP_004.spsrc" = 4,' +
+    '"SP_005.spsrc" = 5,' +
+    '"SP_006.spsrc" = 6,' +
+    '"SP_007.spsrc" = 7,' +
+    '"SP_008.spsrc" = 8,' +
+    '"SP_009.spsrc" = 9,' +
+    '"SP_010.spsrc" = 10,' +
+    '"SP_011.spsrc" = 11,' +
+    '"SP_012.spsrc" = 12,' +
+    '"SP_013.spsrc" = 13,' +
+    '"SP_014.spsrc" = 14,' +
+    '"SP_015.spsrc" = 15,' +
+    '"SP_016.spsrc" = 16,' +
+    '"SP_017.spsrc" = 17,' +
+    '"SP_018.spsrc" = 18,' +
+    '"SP_019.spsrc" = 19,' +
+    '"SP_020.spsrc" = 20,' +
+    '"SP_021.spsrc" = 21,' +
+    '"SP_022.spsrc" = 22,' +
+    '"SP_023.spsrc" = 23,' +
+    '"SP_024.spsrc" = 24,' +
+    '"SP_025.spsrc" = 25,' +
+    '"SP_026.spsrc" = 26,' +
+    '"DOS Prompt" = 99,' +
+    '"EXIT"': ans$
+  if  _exit  then  exit do
+  select case ans$ 
+  case '1'
+    print ">>case SP_001.spsrc"
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_001.spsrc' 
+  case '2'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_002.spsrc' 
+  case '3'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_003.spsrc' 
+  case '4'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_004.spsrc' 
+  case '5'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_005.spsrc' 
+  case '6'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_006.spsrc' 
+  case '7'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_007.spsrc' 
+  case '8'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_008.spsrc' 
+  case '9'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_009.spsrc' 
+  case '10'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_010.spsrc' 
+  case '11'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_011.spsrc' 
+  case '12'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_012.spsrc' 
+  case '13'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_013.spsrc' 
+  case '14'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_014.spsrc' 
+  case '15'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_015.spsrc' 
+  case '16'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_016.spsrc' 
+  case '17'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_017.spsrc' 
+  case '18'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_018.spsrc'
+  case '19'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_019.spsrc'
+  case '20'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_020.spsrc'
+  case '21'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_021.spsrc'
+  case '22'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_022.spsrc'
+  case '23'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_023.spsrc'
+  case '24'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_024.spsrc'
+  case '25'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_025.spsrc'
+  case '26'
+    cmd$ =  sheerpower$ + ' ' + examplesfolder$+'\SP_026.spsrc'
+
+  case '99' 
+    cmd$ = '$$'
+
+  end select
+    pass nowait, window: cmd$
+loop
+end
+
+
+stop
+
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!         R o u t i n e s
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+routine generate_menu_list
+
+
+end routine 
+
+end

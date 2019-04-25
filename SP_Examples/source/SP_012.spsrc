@@ -1,0 +1,46 @@
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+! Program: SP_012.spsrc
+! System : .
+! Author : peterennisrda
+! Company: RDA
+! Date   : February 04, 2019
+! Purpose: Displaying complex expression results for web loading spsrc files
+!
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+! Ref: http://www.ttinet.com/doc/sp4gl/sheerpower_079.html#index_x_1934
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!         I n i t i a l i z a t i o n
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!         M a i n   L o g i c   A r e a
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+// Have the browser load the file
+// NOTE: The browser loaded spsrc files must reside in a
+// scripts/sp4gl folder beside the defined web root
+// e.g. Make sure the SPINS web server is running
+// c:\sheerpower\sphandlers\spins_webserver.exe -port 8080 -wwwroot C:\some\folder\source
+//                      source/*.spsrc
+//                      scripts/sp4gl/SP_012run.spsrc
+
+infile$ = 'http://localhost:8080/' + 'SP_012run.spsrc'
+print 'infile$ = ' + infile$
+pass url: infile$ 
+
+
+stop
+
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!         R o u t i n e s
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+end

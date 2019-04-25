@@ -1,0 +1,127 @@
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+! Program: SP_Startup.spsrc
+! System : .
+! Author : peterennisrda
+! Company: RDA
+! Date   : February 14, 2019
+! Purpose: Sample server initialization script
+!
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!         I n i t i a l i z a t i o n
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+server_name$ = 'SRV'
+is_port8080? = true
+
+// Set production server false for dev/test
+set system, logical '_production': value 'NO'
+
+is_production? = true
+ask system, logical '_production': value z0$
+if z0$ = 'YES' then
+  is_production? = true
+else
+  is_production? = false
+end if
+
+print 'is_production? = ', is_production?
+
+here$ = filespec$('@', 'location')
+
+print 'here$ = ', here$
+
+poolfile$  = filespec$('sheerpower:sphandlers\spiis.gblpool')
+html_path$ = filespec$('@..\wwwroot')
+
+print 'poolfile$ = ', poolfile$
+print 'html_path$ = ', html_path$
+
+z0$ = ''
+if is_port8080? then z0$ = ' -port 8080'
+
+print 'z0$ = ', z0$
+
+webserver$ = filespec$('sheerpower:sphandlers\spins_webserver.exe') +
+             z0$ +
+             ' -wwwroot "' + html_path$ + '"'
+
+print 'webserver$ = ', webserver$
+
+// Delay between TYPES of applications being launched
+// (set higher to detect on-screen errors)
+launch_delay = .5
+
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!         M a i n   L o g i c   A r e a
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+version$ = 'version 1.0'
+print server_name$ + ' Startup '; version$; &
+       ' -- started '; date$(days(date$), 3); ' at '; time$
+
+set icon '@..\source\smiley.ico'
+
+set system, logical '_shutdown': value 'NO'  // reset shutdown flag
+
+if is_production? then
+  print '*** Waiting a minute for other layers to startup ***'
+  when exception in
+    line input prompt 'Press ENTER to continue sooner...', 
+               timeout 1*60: ans$
+  use
+  end when
+end if
+
+open structure session  : name '@..\data\session', access outin
+
+//--------------------------------
+
+! Cleanup for production start
+
+//--------------------------------
+
+
+print 'Launching programs...'
+
+do
+  delay launch_delay
+  pass nowait: here$ + 'SP_handler.spsrc'
+  delay 1
+  ! only start one handler if running development code
+  if not is_production? then exit do
+
+  pass nowait: here$ + 'SP_handler.spsrc'
+  delay 1
+end do
+
+
+
+
+
+//--------------------------------
+
+! Startup completed
+
+//--------------------------------
+
+print 'Startup completed '; date$(days(date$), 3); ' at '; time$
+delay 5
+abort
+
+
+stop
+
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!         R o u t i n e s
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+end

@@ -1,0 +1,4 @@
+data/*.ARS
+output/
+
+*.zip
